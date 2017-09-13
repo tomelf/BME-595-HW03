@@ -9,7 +9,6 @@ class NeuralNetwork(object):
         self.dE_dTheta = []
         self.a = []
         self.a_hat = []
-        self.z = []
         self.delta = []
 
     def build(self, in_layer, *h_arr):
@@ -47,26 +46,15 @@ class NeuralNetwork(object):
             if i == len(self.a_hat)-1:
                 # delta(L) = (a_hat(L)-y) * (a_hat(L) * (1-a_hat(L)))
                 self.delta.insert(0, (self.a_hat[i]-target) * (self.a_hat[i]*(1-self.a_hat[i])))
-                # print "delta[", i+1, "]", self.delta[0]
             else:
                 th = self.Theta[i]
                 last_delta = self.delta[0][1:]
-                # print "th", th
-                # print "a_hat[i]", self.a_hat[i]
-                # print "last_delta", last_delta
-
                 # delta(l) = (theta(l)^T x delta(l+1)) * (a_hat(l) * (1-a_hat(l)))
                 delta = (th.transpose(0,1).mm(last_delta)) * (self.a_hat[i] * (1-self.a_hat[i]))
-                # print "delta", delta
-
                 # dE_dTheta(l) = a(l) x (delta(l+1)^T)
                 dE_dTheta = self.a_hat[i].mm(last_delta.transpose(0, 1)).transpose(0, 1)
-                # print "dE_dTheta", dE_dTheta
-
                 self.delta.insert(0, delta)
                 self.dE_dTheta.insert(0, dE_dTheta)
-                # print "delta[", i+1, "]", self.delta[0]
-                # print "dE_dTheta[", i+1, "]", self.dE_dTheta[0]
 
     def updateParams(self, eta):
         self.eta = eta
