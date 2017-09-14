@@ -47,7 +47,6 @@ class NeuralNetwork(object):
         target = torch.cat((bias, target), 0)
 
         for i in reversed(range(len(self.a))):
-            # print "======== Round", i, "============="
             if i == len(self.a_hat)-1:
                 # delta(L) = (a_hat(L)-y) * (a_hat(L) * (1-a_hat(L)))
                 self.delta.insert(0, (self.a_hat[i]-target) * (self.a_hat[i]*(1-self.a_hat[i])))
