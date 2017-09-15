@@ -11,9 +11,9 @@
 
 - Each class extends the class NeuralNetwork
 - Constructor: For AND, OR, XOR, initialize NeuralNetwork(2,2,1). For NOT, initialize NeuralNetwork(1,2,1)
-- Call: For AND, OR, XOR, perform NeuralNetwork.forward(x, y). For NOT, perform NeuralNetwork.forward(x). Then all classes perform train()
-- forward: Convert boolen to (0,1) as the input of forward() function. Return True if the output > threshold(0.5) else False. 
-- train: Calculate the expected output value as the input of backward() function, and then call updateParams() to update Thetas
+- Call: For AND, OR, XOR, perform forward(x, y). For NOT, perform forward(x). Return the output
+- forward: Convert boolean to (0,1) as the input of forward() function. Return True if the output > threshold(0.5) else False.
+- train: For AND, OR, XOR, perform forward(x, y). For NOT, perform forward(x). Then all classes calculate the expected output value as the input of backward() function, and then call updateParams() to update Thetas
 
 ### Observations
 

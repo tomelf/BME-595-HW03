@@ -8,18 +8,22 @@ class AND(NeuralNetwork):
         self.build(2, 2, 1)
 
     def __call__(self, x, y):
-        output = self.forward(x, y)
-        self.train()
+        self.x = x
+        self.y = y
+        output = self.forward(self.x, self.y)
         return output
 
     def forward(self, x, y):
-        self.x = 1 if x else 0
-        self.y = 1 if y else 0
-        output = super(AND, self).forward(torch.FloatTensor([self.x, self.y]))
+        x = 1 if x else 0
+        y = 1 if y else 0
+        output = super(AND, self).forward(torch.FloatTensor([x, y]))
         return output[0][0] > 0.5
 
     def train(self):
-        label = (self.x and self.y)
+        output = self.forward(self.x, self.y)
+        x = 1 if self.x else 0
+        y = 1 if self.y else 0
+        label = (x and y)
         super(AND, self).backward(torch.FloatTensor([label]))
         super(AND, self).updateParams(eta=0.2)
 
@@ -29,18 +33,22 @@ class OR(NeuralNetwork):
         self.build(2, 2, 1)
 
     def __call__(self, x, y):
-        output = self.forward(x, y)
-        self.train()
+        self.x = x
+        self.y = y
+        output = self.forward(self.x, self.y)
         return output
 
     def forward(self, x, y):
-        self.x = 1 if x else 0
-        self.y = 1 if y else 0
-        output = super(OR, self).forward(torch.FloatTensor([self.x, self.y]))
+        x = 1 if x else 0
+        y = 1 if y else 0
+        output = super(OR, self).forward(torch.FloatTensor([x, y]))
         return output[0][0] > 0.5
 
     def train(self):
-        label = (self.x or self.y)
+        output = self.forward(self.x, self.y)
+        x = 1 if self.x else 0
+        y = 1 if self.y else 0
+        label = (x or y)
         super(OR, self).backward(torch.FloatTensor([label]))
         super(OR, self).updateParams(eta=0.2)
 
@@ -50,17 +58,19 @@ class NOT(NeuralNetwork):
         self.build(1, 2, 1)
 
     def __call__(self, x):
-        output = self.forward(x)
-        self.train()
+        self.x = x
+        output = self.forward(self.x)
         return output
 
     def forward(self, x):
-        self.x = 1 if x else 0
-        output = super(NOT, self).forward(torch.FloatTensor([self.x]))
+        x = 1 if x else 0
+        output = super(NOT, self).forward(torch.FloatTensor([x]))
         return output[0][0] > 0.5
 
     def train(self):
-        label = 1 if not self.x else 0
+        output = self.forward(self.x)
+        x = 1 if self.x else 0
+        label = 1 if not x else 0
         super(NOT, self).backward(torch.FloatTensor([label]))
         super(NOT, self).updateParams(eta=0.2)
 
@@ -70,17 +80,21 @@ class XOR(NeuralNetwork):
         self.build(2, 2, 1)
 
     def __call__(self, x, y):
-        output = self.forward(x, y)
-        self.train()
+        self.x = x
+        self.y = y
+        output = self.forward(self.x, self.y)
         return output
 
     def forward(self, x, y):
-        self.x = 1 if x else 0
-        self.y = 1 if y else 0
-        output = super(XOR, self).forward(torch.FloatTensor([self.x, self.y]))
+        x = 1 if x else 0
+        y = 1 if y else 0
+        output = super(XOR, self).forward(torch.FloatTensor([x, y]))
         return output[0][0] > 0.5
 
     def train(self):
-        label = (self.x ^ self.y)
+        output = self.forward(self.x, self.y)
+        x = 1 if self.x else 0
+        y = 1 if self.y else 0
+        label = (x ^ y)
         super(XOR, self).backward(torch.FloatTensor([label]))
         super(XOR, self).updateParams(eta=0.2)
