@@ -1,5 +1,11 @@
 # BME-595 Assignment 03
 
+1. Create a Python script NeuralNetwork.py that contains two local empty dictionaries Theta and dE_dTheta and the five functions described in the API.
+2. Implement back-propagation with a Mean Square Error loss function.
+3. Update the matrices Theta with updateParams(eta) based on the learning rate eta and the gradient of the error with respect of the parameters dE_dTheta.
+4. Train the AND, OR, NOT and XOR networks using the NeuralNetwork API (calling forward(), backward() and updateParams() in a cycle) on a hand-crafted data set (Hint: use Python’s and, or, not and combination of these in order to build your data on the fly). Compare the the Thetas with what you set manually in HW02. One may learn the new Thetas with the train() function.
+
+
 ### API (NeuralNetwork)
 - build: Take the numbers of layers as input, randomly initialize a series of theta layers (including bias layer)
 - getLayer: Take one index of theta layers as input, return the specific theta layer
